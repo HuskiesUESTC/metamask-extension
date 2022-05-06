@@ -266,6 +266,7 @@ export default class NetworkController extends EventEmitter {
   }
 
   setRpcTarget(rpcUrl, chainId, ticker = 'ETH', nickname = '', rpcPrefs) {
+    console.log('chainId: ', chainId);
     assert.ok(
       isPrefixedFormattedHexString(chainId),
       `Invalid chain ID "${chainId}": invalid hex string.`,
@@ -337,6 +338,7 @@ export default class NetworkController extends EventEmitter {
   //
 
   async _checkInfuraAvailability(network) {
+    // const rpcUrl = `http://localhost:8545`;
     const rpcUrl = `https://${network}.infura.io/v3/${this._infuraProjectId}`;
 
     let networkChanged = false;

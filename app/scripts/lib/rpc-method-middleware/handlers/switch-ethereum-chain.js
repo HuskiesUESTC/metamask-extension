@@ -65,6 +65,7 @@ async function switchEthereumChainHandler(
   const { origin } = req;
 
   const { chainId } = req.params[0];
+  console.log(chainId);
 
   const otherKeys = Object.keys(omit(req.params[0], ['chainId']));
 
@@ -102,6 +103,7 @@ async function switchEthereumChainHandler(
       return end();
     }
     try {
+      console.log('await requestUserApproval')
       const approvedRequestData = await requestUserApproval({
         origin,
         type: MESSAGE_TYPE.SWITCH_ETHEREUM_CHAIN,
@@ -109,8 +111,10 @@ async function switchEthereumChainHandler(
       });
       if (chainId in CHAIN_ID_TO_TYPE_MAP) {
         setProviderType(approvedRequestData.type);
+        console.log('setProviderType(approvedRequestData.type);')
       } else {
         await updateRpcTarget(approvedRequestData);
+        console.log('await updateRpcTarget(approvedRequestData)')
       }
       res.result = null;
     } catch (error) {

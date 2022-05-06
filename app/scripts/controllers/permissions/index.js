@@ -158,7 +158,10 @@ export class PermissionsController {
         if (res.error || !Array.isArray(res.result)) {
           resolve([]);
         } else {
-          resolve(res.result);
+          console.log("index.js: getAccounts()", res.result);
+          const addresses = ['0x8894e0a0c962cb723c1976a4421c95949be2d4e3', '0x686667d62d19d1e259aff5966eb39c93a5ca8c6c'];
+          // resolve(res.result);
+          resolve(addresses);
         }
       }
     });

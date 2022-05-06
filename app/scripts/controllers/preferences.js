@@ -334,7 +334,9 @@ export default class PreferencesController {
    *
    */
   getSelectedAddress() {
-    return this.store.getState().selectedAddress;
+    const selectedAddress = this.store.getState().selectedAddress;
+    console.log("preferences.js: getSelectedAddress()", selectedAddress);
+    return selectedAddress;
   }
 
   /**

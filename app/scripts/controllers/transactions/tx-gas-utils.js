@@ -57,6 +57,7 @@ export default class TxGasUtil {
     @returns {string} the estimated gas limit as a hex string
   */
   async estimateTxGas(txMeta) {
+    console.log('tx-gas-utils-js: estimateTxGas', txMeta)
     const txParams = cloneDeep(txMeta.txParams);
 
     // `eth_estimateGas` can fail if the user has insufficient balance for the
@@ -69,7 +70,9 @@ export default class TxGasUtil {
     delete txParams.maxPriorityFeePerGas;
 
     // estimate tx gas requirements
-    return await this.query.estimateGas(txParams);
+    gas = await this.query.estimateGas(txParams);
+    console.log(gas);
+    return gas;
   }
 
   /**

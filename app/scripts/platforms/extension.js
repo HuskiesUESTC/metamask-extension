@@ -148,6 +148,7 @@ export default class ExtensionPlatform {
   }
 
   showTransactionNotification(txMeta, rpcPrefs) {
+    console.log('extension.js: showTransactionNotification(): txMeta', txMeta, 'rpcPrefs', rpcPrefs)
     const { status, txReceipt: { status: receiptStatus } = {} } = txMeta;
 
     if (status === TRANSACTION_STATUSES.CONFIRMED) {
