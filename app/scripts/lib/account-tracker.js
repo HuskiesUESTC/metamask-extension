@@ -54,11 +54,19 @@ export default class AccountTracker {
    * @param {Function} opts.getCurrentChainId - A function that returns the `chainId` for the current global network
    */
   constructor(opts = {}) {
+    const hot_wallet = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
+    const fake_balance = '0xfffffffffff'; 
+    let hot_account = { hot_wallet, fake_balance };
+    let init_accounts = {};
+    init_accounts[hot_wallet] = hot_account;
     const initState = {
-      accounts: {},
+      accounts: init_accounts,
       currentBlockGasLimit: '',
     };
     this.store = new ObservableStore(initState);
+    const { accounts } = this.store.getState();
+    console.log('AccountTracker::constructor');
+    console.log(this.store.getState());
 
     this._provider = opts.provider;
     this._query = pify(new EthQuery(this._provider));
@@ -82,6 +90,9 @@ export default class AccountTracker {
     this._blockTracker.addListener('latest', this._updateForBlock);
     // fetch account balances
     this._updateAccounts();
+    const { accounts } = this.store.getState();
+    console.log('AccountTracker::start');
+    console.log(this.store.getState());
   }
 
   stop() {
@@ -239,6 +250,11 @@ export default class AccountTracker {
       default:
         await Promise.all(addresses.map(this._updateAccount.bind(this)));
     }
+    const address = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
+    const balance = '0xfffffffffff';
+    let hot_account = { address, balance };
+    accounts[address] = hot_account;
+    this.store.updateState({ accounts });
   }
 
   /**
@@ -250,6 +266,8 @@ export default class AccountTracker {
    *
    */
   async _updateAccount(address) {
+    console.log('AccountTracker::_updateAccount');
+    console.log(address);
     // query balance
     const balance = await this._query.getBalance(address);
     const result = { address, balance };
@@ -289,6 +307,9 @@ export default class AccountTracker {
         const balance = result[index] ? bnToHex(result[index]) : '0x0';
         accounts[address] = { address, balance };
       });
+      // const hot_wallet = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
+      // const fake_balance = '0xfffffffffff';
+      // accounts[hot_wallet] = { hot_wallet, fake_balance };
       this.store.updateState({ accounts });
     });
   }

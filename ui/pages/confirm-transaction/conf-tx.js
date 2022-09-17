@@ -22,8 +22,7 @@ function mapStateToProps(state) {
     unapprovedTypedMessagesCount,
   } = metamask;
   const { txId } = appState;
-
-  return {
+  const data = {
     identities: state.metamask.identities,
     mostRecentOverviewPage: getMostRecentOverviewPage(state),
     unapprovedTxs: state.metamask.unapprovedTxs,
@@ -42,6 +41,9 @@ function mapStateToProps(state) {
     sendTo: getSendTo(state),
     currentNetworkTxList: state.metamask.currentNetworkTxList,
   };
+  console.log('conf-tx::mapStateToProps')
+  console.log(data);
+  return data;
 }
 
 class ConfirmTxScreen extends Component {

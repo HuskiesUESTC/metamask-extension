@@ -208,6 +208,7 @@ export default class PreferencesController {
    *
    */
   setAddresses(addresses) {
+    console.log('setAddress::setAddress');
     const oldIdentities = this.store.getState().identities;
 
     const identities = addresses.reduce((ids, address, index) => {
