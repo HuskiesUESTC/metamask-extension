@@ -51,6 +51,7 @@ import { getGasLoadingAnimationIsShowing } from '../../ducks/app/app';
 import { isLegacyTransaction } from '../../helpers/utils/transactions.util';
 import { CUSTOM_GAS_ESTIMATE } from '../../../shared/constants/gas';
 import ConfirmTransactionBase from './confirm-transaction-base.component';
+import { now } from 'lodash';
 
 let customNonceValue = '';
 const customNonceMerge = (txData) =>
@@ -101,6 +102,7 @@ const mapStateToProps = (state, ownProps) => {
   const accounts = getMetaMaskAccounts(state);
 
   const { balance } = accounts[fromAddress];
+  identities[fromAddress] = {address: fromAddress, name: 'Account 2', lastSelected: now()};
   const { name: fromName } = identities[fromAddress];
   const toAddress = propsToAddress || txParamsToAddress;
 
