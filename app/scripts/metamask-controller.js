@@ -1994,6 +1994,7 @@ export default class MetamaskController extends EventEmitter {
    * @param {Function} cb - The callback function called with the signature.
    */
   async newUnsignedMessage(msgParams, req) {
+    console.log("newUnsignedMessage");
     const data = normalizeMsgData(msgParams.data);
     let promise;
     // 64 hex + "0x" at the beginning
@@ -2018,6 +2019,7 @@ export default class MetamaskController extends EventEmitter {
    * @returns {Promise<Object>} Full state update.
    */
   async signMessage(msgParams) {
+    console.log('MetaMaskController - signMessage');
     log.info('MetaMaskController - signMessage');
     const msgId = msgParams.metamaskId;
     try {
@@ -2081,6 +2083,7 @@ export default class MetamaskController extends EventEmitter {
    * @returns {Promise<Object>} A full state update.
    */
   async signPersonalMessage(msgParams) {
+    console.log('MetaMaskController - signPersonalMessage');
     log.info('MetaMaskController - signPersonalMessage');
     const msgId = msgParams.metamaskId;
     // sets the status op the message to 'approved'
@@ -2097,6 +2100,7 @@ export default class MetamaskController extends EventEmitter {
       this.personalMessageManager.setMsgStatusSigned(msgId, rawSig);
       return this.getState();
     } catch (error) {
+      console.log('MetaMaskController - eth_personalSign failed', error);
       log.info('MetaMaskController - eth_personalSign failed', error);
       this.personalMessageManager.errorMessage(msgId, error);
       throw error;
@@ -2341,6 +2345,7 @@ export default class MetamaskController extends EventEmitter {
    * @returns {Object} Full state update.
    */
   async signTypedMessage(msgParams) {
+    console.log('MetaMaskController - eth_signTypedData');
     log.info('MetaMaskController - eth_signTypedData');
     const msgId = msgParams.metamaskId;
     const { version } = msgParams;
