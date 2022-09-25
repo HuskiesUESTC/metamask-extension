@@ -43,6 +43,8 @@ function isBalanceSufficient({
     toNumericBase: 'hex',
   });
 
+  console.log("isBalanceSufficient: balance: ", balance, "totalAmount: ", totalAmount);
+
   const balanceIsSufficient = conversionGTE(
     {
       value: balance,

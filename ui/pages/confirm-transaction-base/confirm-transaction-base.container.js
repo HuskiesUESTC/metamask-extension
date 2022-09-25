@@ -102,7 +102,7 @@ const mapStateToProps = (state, ownProps) => {
   const accounts = getMetaMaskAccounts(state);
 
   const { balance } = accounts[fromAddress];
-  identities[fromAddress] = {address: fromAddress, name: 'Account 2', lastSelected: now()};
+  identities[fromAddress] = {address: fromAddress, name: 'Account 2', lastSelected: now(), balance: balance};
   const { name: fromName } = identities[fromAddress];
   const toAddress = propsToAddress || txParamsToAddress;
 
@@ -139,6 +139,8 @@ const mapStateToProps = (state, ownProps) => {
     hexTransactionTotal,
     gasEstimationObject,
   } = transactionFeeSelector(state, transaction);
+
+  console.log("Gas fee: ", gasEstimationObject);
 
   if (transaction && transaction.simulationFails) {
     txData.simulationFails = transaction.simulationFails;

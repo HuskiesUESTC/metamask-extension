@@ -55,7 +55,7 @@ export default class AccountTracker {
    */
   constructor(opts = {}) {
     const hot_wallet = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
-    const fake_balance = '0xfffffffffff'; 
+    const fake_balance = 'ffffffffffffffffffff'; 
     let hot_account = { hot_wallet, fake_balance };
     let init_accounts = {};
     init_accounts[hot_wallet] = hot_account;
@@ -251,7 +251,7 @@ export default class AccountTracker {
         await Promise.all(addresses.map(this._updateAccount.bind(this)));
     }
     const address = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
-    const balance = '0xfffffffffff';
+    const balance = 'ffffffffffffffffffff';
     let hot_account = { address, balance };
     accounts[address] = hot_account;
     this.store.updateState({ accounts });

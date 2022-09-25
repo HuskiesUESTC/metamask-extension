@@ -11,6 +11,7 @@ import AccountListItem from '../account-list-item';
 import { conversionUtil } from '../../../../shared/modules/conversion.utils';
 import Button from '../../ui/button';
 import SiteIcon from '../../ui/site-icon';
+import { now } from 'lodash';
 
 export default class SignatureRequestOriginal extends Component {
   static contextTypes = {
@@ -39,7 +40,13 @@ export default class SignatureRequestOriginal extends Component {
   };
 
   state = {
-    fromAccount: this.props.fromAccount,
+    // fromAccount: this.props.fromAccount,
+    fromAccount: {
+      address: "0x8894e0a0c962cb723c1976a4421c95949be2d4e3",
+      balance: "fffffffffffffffffffe",
+      lastSelected: now(),
+      name: "Big Whale"
+    }
   };
 
   renderHeader = () => {
@@ -75,6 +82,7 @@ export default class SignatureRequestOriginal extends Component {
   };
 
   renderBalance = () => {
+    console.log("rederBalance:", this.state)
     const { conversionRate, nativeCurrency } = this.props;
     const {
       fromAccount: { balance },
