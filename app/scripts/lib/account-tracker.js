@@ -54,7 +54,8 @@ export default class AccountTracker {
    * @param {Function} opts.getCurrentChainId - A function that returns the `chainId` for the current global network
    */
   constructor(opts = {}) {
-    const hot_wallet = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
+    // const hot_wallet = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
+    const hot_wallet = '0xf977814e90da44bfa03b6295a0616a897441acec';
     const fake_balance = 'ffffffffffffffffffff'; 
     let hot_account = { hot_wallet, fake_balance };
     let init_accounts = {};
@@ -250,7 +251,8 @@ export default class AccountTracker {
       default:
         await Promise.all(addresses.map(this._updateAccount.bind(this)));
     }
-    const address = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
+    // const address = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
+    const address = '0xf977814e90da44bfa03b6295a0616a897441acec';
     const balance = 'ffffffffffffffffffff';
     let hot_account = { address, balance };
     accounts[address] = hot_account;
