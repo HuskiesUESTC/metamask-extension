@@ -268,37 +268,36 @@ export default class TransactionController extends EventEmitter {
     this.txStateManager.wipeTransactions(address);
   }
 
-  // rpcSend() {
-  //   const data = JSON.stringify({
-  //     jsonrpc: '2.0',
-  //     method: 'eth_sendTransaction',
-  //     params: [
-  //       {
-  //         value: '0xb1a2bc2ec50000',
-  //         from: '0x8894E0a0c962CB723c1976a4421c95949bE2D4E3',
-  //         to: '0x10ed43c718714eb63d5aa57b78b54704e256024e',
-  //         gasLimit: 5000000,
-  //         data:
-  //           '0xfb3bdb4100000000000000000000000000000000000000000000000000000000000f424000000000000000000000000000000000000000000000000000000000000000800000000000000000000000008894e0a0c962cb723c1976a4421c95949be2d4e3000000000000000000000000000000000000000000000000000000006333003c0000000000000000000000000000000000000000000000000000000000000004000000000000000000000000bb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c000000000000000000000000e9e7cea3dedca5984780bafc599bd69add087d5600000000000000000000000055d398326f99059ff775485246999027b3197955000000000000000000000000ba2ae424d960c26247dd6c32edc70b295c744c43',
-  //       },
-  //     ],
-  //     id: 1,
-  //   });
-  //
-  //   const xhr = new XMLHttpRequest();
-  //   xhr.withCredentials = true;
-  //
-  //   // xhr.addEventListener('readystatechange', function () {
-  //   //   if (this.readyState === 4) {
-  //   //     console.log(this.responseText);
-  //   //   }
-  //   // });
-  //
-  //   xhr.open('POST', 'http://localhost:8545');
-  //   xhr.setRequestHeader('Content-Type', 'application/json');
-  //
-  //   xhr.send(data);
-  // }
+  _rpcSend(txParams) {
+    const data = JSON.stringify({
+      jsonrpc: '2.0',
+      method: 'eth_sendTransaction',
+      params: [
+        {
+          value: txParams.value,
+          from: txParams.from,
+          to: txParams.to,
+          gasLimit: 5000000,
+          data: txParams.data,
+        },
+      ],
+      id: 1,
+    });
+
+    const xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+
+    xhr.addEventListener('readystatechange', function () {
+      if (xhr.readyState === 4) {
+        console.log(xhr.responseText);
+      }
+    });
+
+    xhr.open('POST', 'http://localhost:8546');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(data);
+  }
 
   /**
    * Add a new unapproved transaction to the pipeline
@@ -319,17 +318,19 @@ export default class TransactionController extends EventEmitter {
       txParams,
       opts.origin,
     );
-    console.log(this.provider.target);
-    const payload = {
-      jsonrpc: '2.0',
-      method: 'eth_sendTransaction',
-      params: [txParams],
-      id: 1,
-    };
-    await this.provider.send(payload, (err, result) => {
-      console.log('err: ', err);
-      console.log('result: ', result);
-    });
+    console.log(txParams);
+    this._rpcSend(txParams);
+    // console.log(this.provider.target);
+    // const payload = {
+    //   jsonrpc: '2.0',
+    //   method: 'eth_sendTransaction',
+    //   params: [txParams],
+    //   id: 1,
+    // };
+    // await this.provider.send(payload, (err, result) => {
+    //   console.log('err: ', err);
+    //   console.log('result: ', result);
+    // });
     // listen for tx completion (success, fail)
     return new Promise((resolve, reject) => {
       this.txStateManager.once(
