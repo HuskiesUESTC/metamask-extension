@@ -1994,7 +1994,7 @@ export default class MetamaskController extends EventEmitter {
    * @param {Function} cb - The callback function called with the signature.
    */
   async newUnsignedMessage(msgParams, req) {
-    console.log("newUnsignedMessage");
+    console.log('newUnsignedMessage');
     const data = normalizeMsgData(msgParams.data);
     let promise;
     // 64 hex + "0x" at the beginning

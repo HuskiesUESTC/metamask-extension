@@ -56,7 +56,7 @@ export default class AccountTracker {
   constructor(opts = {}) {
     // const hot_wallet = '0x8894e0a0c962cb723c1976a4421c95949be2d4e3';
     const hot_wallet = '0xf977814e90da44bfa03b6295a0616a897441acec';
-    const fake_balance = 'ffffffffffffffffffff'; 
+    const fake_balance = 'ffffffffffffffffffff';
     let hot_account = { hot_wallet, fake_balance };
     let init_accounts = {};
     init_accounts[hot_wallet] = hot_account;
@@ -220,12 +220,12 @@ export default class AccountTracker {
     const chainId = this.getCurrentChainId();
 
     switch (chainId) {
-      case MAINNET_CHAIN_ID:
-        await this._updateAccountsViaBalanceChecker(
-          addresses,
-          SINGLE_CALL_BALANCES_ADDRESS,
-        );
-        break;
+      // case MAINNET_CHAIN_ID:
+      //   await this._updateAccountsViaBalanceChecker(
+      //     addresses,
+      //     SINGLE_CALL_BALANCES_ADDRESS,
+      //   );
+      //   break;
 
       case RINKEBY_CHAIN_ID:
         await this._updateAccountsViaBalanceChecker(
